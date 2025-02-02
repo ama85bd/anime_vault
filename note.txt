@@ -1,0 +1,12 @@
+npm install prisma
+npm install @prisma/client
+npx prisma init
+npx prisma generate
+npx prisma db push  
+npx prisma studio
+npx shadcn@latest init
+npx shadcn@latest add input
+npm i react-hook-form
+npm i @hookform/resolvers
+npm i yup
+npm i axios
