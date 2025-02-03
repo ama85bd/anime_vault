@@ -3,17 +3,26 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Response) {
   try {
-    const { name, image } = await req.json();
-    console.log('name', name);
-    console.log('image', image);
+    const { name, image, address, mobile } = await req.json();
 
     const create = await prisma.anime.create({
-      data: { name, image },
+      data: { name, image, address, mobile },
     });
 
-    return NextResponse.json({ create });
+    return NextResponse.json(create);
   } catch (error) {
     console.log('Error creating: ', error);
     return NextResponse.json({ error: 'Error creating', status: 500 });
+  }
+}
+
+export async function GET(req: Response) {
+  try {
+    const getsss = await prisma.anime.findMany({});
+
+    return NextResponse.json(getsss);
+  } catch (error) {
+    console.log('Error finding: ', error);
+    return NextResponse.json({ error: 'Error finding', status: 500 });
   }
 }

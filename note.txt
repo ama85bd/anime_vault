@@ -10,3 +10,6 @@ npm i react-hook-form
 npm i @hookform/resolvers
 npm i yup
 npm i axios
+
+npm install socket.io
+npm install socket.io-client
