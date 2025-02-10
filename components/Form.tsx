@@ -1,9 +1,10 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { socket } from '@/lib/socketClient';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -29,10 +30,26 @@ const Form = () => {
     },
   });
 
+  useEffect(() => {
+    socket.on('message', (message) => {
+      console.log('message ', message);
+    });
+    socket.on('user_joined', (msg) => {
+      console.log('user_joined ', msg);
+    });
+
+    return () => {
+      socket.off('user_joined');
+    };
+  }, []);
+
   const onSubmit = async (data: any) => {
     console.log('data', { ...data });
-    const res = await axios.post('/api/tasks', data);
-    console.log('res', res);
+    socket.emit('join-room', { room: 'room', username: 'username' });
+    const dataMsg = { room: 'room', message: 'message', sender: 'Username' };
+    socket.emit('message', dataMsg);
+    // const res = await axios.post('/api/tasks', data);
+    // console.log('res', res);
   };
 
   return (

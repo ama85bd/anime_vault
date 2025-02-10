@@ -14,3 +14,6 @@ npm i axios
 npm install socket.io
 npm install socket.io-client
 npm i ts-node --force
+
+npm run build:socket
+npm run start:socket

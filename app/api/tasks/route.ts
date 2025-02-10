@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/db/connect';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
-export async function POST(req: Response) {
+export async function POST(req: NextRequest) {
   try {
     const { name, image, address, mobile } = await req.json();
 
@@ -16,7 +16,7 @@ export async function POST(req: Response) {
   }
 }
 
-export async function GET(req: Response) {
+export async function GET(req: NextRequest) {
   try {
     const getsss = await prisma.anime.findMany({});
 

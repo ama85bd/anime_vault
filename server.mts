@@ -15,6 +15,21 @@ app.prepare().then(() => {
 
   io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
+
+    socket.on('join-room', ({ room, username }) => {
+      socket.join(room);
+      console.log(`User ${username} joined room ${room}`);
+      socket.to(room).emit('user_joined', `User ${username} joined room`);
+    });
+
+    socket.on('message', ({ room, message, sender }) => {
+      console.log(`Message from ${sender} in room ${room} ${message}`);
+      socket.to(room).emit('message', { sender, message });
+    });
+
+    socket.on('disconnected', () => {
+      console.log(`User disconnected ${socket.id}`);
+    });
   });
 
   httpServer.listen(port, () => {
