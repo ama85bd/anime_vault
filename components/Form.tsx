@@ -48,8 +48,8 @@ const Form = () => {
     socket.emit('join-room', { room: 'room', username: 'username' });
     const dataMsg = { room: 'room', message: 'message', sender: 'Username' };
     socket.emit('message', dataMsg);
-    // const res = await axios.post('/api/tasks', data);
-    // console.log('res', res);
+    const res = await axios.post('/api/tasks', data);
+    console.log('res', res);
   };
 
   return (
